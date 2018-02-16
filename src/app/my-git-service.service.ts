@@ -4,15 +4,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MyGitServiceService {
     girPublicURL = `https://api.github.com/users/`;
-    gitPulicSearchURL = `https://api.github.com/search/users?q=`
+    
     constructor(private http: Http) {
 
     }
 
-    getUserSearch(usernameObject) {
-        return this.http.get(this.gitPulicSearchURL+usernameObject)
-            .map((res: Response) => res.json());
-    }
     getUser(usernameObject) {
         return this.http.get(this.girPublicURL + usernameObject)
             .map((res: Response) => res.json());

@@ -13,27 +13,7 @@
         </form>
     </div>
     <!--end git input text form container-->
-    <div class="search-list-container">
-        <div class="col-md-2 col=sm-3 col=xs-4 profile-badge"  *ngFor="let userObject of searchResults">
-          
-            <div class="pinned-inner-wrapper">
-                <div class="profile-image-wrapper">
-                    <img src="{{userObject.avatar_url}}" class="profile-img" style="width:100%" />
-                </div>
-                <div class="profile-short-detail-wrapper">
-                    <div class="app-bold-text">
-                        {{userObject.login}}
-                    </div>
-                    <div class="app-light-text">{{userObject.score}}</div>
-
-                </div>
-                <span class="followers-following-container">
-                </span>
-
-            </div>
-        </div>
-       
-    </div>
+    
     <!--avtar  container-->
     <div id="ghapidata" class="clearfix" *ngIf="isProfile">
         <h2>{{profile.login}}
