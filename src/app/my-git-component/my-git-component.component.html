@@ -13,106 +13,34 @@
         </form>
     </div>
     <!--end git input text form container-->
-    
-    <!--avtar  container-->
-    <div id="ghapidata" class="clearfix" *ngIf="isProfile">
-        <h2>{{profile.login}}
-            <span class="smallname">
-                (@
-                <a href="{{profile.html_url}}" target="_blank">{{profile.login}}</a>)
-            </span>
-        </h2>
-        <div class="ghcontent">
-            <div class="avtar">
-                <a href="{{profile.html_url}}" target="_blank">
-                    <img src="{{profile.avatar_url}}" width="100" height="100" alt="{{profile.login}}">
-                </a>
-            </div>
-            <div class="section-container">
-                <span class="widget">
-                    Followers:{{profile.followers}}
-                </span>
-                <span class="widget">
-                    Following:{{profile.following}}
-                </span>
-                <span class="widget">
-                    Repos:{{profile.public_repos}}
-                </span>
+
+    <div class="search-list-container">
+        <div class="col-md-2 col-sm-3 col-xs-6 profile-badge" *ngFor="let userObject of searchResults">
+
+            <div class="pinned-inner-wrapper"  [routerLink]="['/gitUserDeatil', userObject.login]" title="Click Me">
+                <div class="profile-image-wrapper">
+                    <img src="{{userObject.avatar_url}}" class="profile-img" style="width:100%" />
+                </div> 
+                <div class="profile-short-detail-wrapper">
+                    <div class="app-bold-text">
+                        {{userObject.login}}
+                    </div>
+                    <div class="app-light-text">{{userObject.score}}</div>
+
+                </div>
+                
 
             </div>
-
         </div>
 
     </div>
-    <!--end avtar  container-->
 
-    <!-- repo list container -->
-    <div class="hide-block" *ngIf="myRepoList.length>0">
-        <p>
-            <strong>Repos List:</strong>
-        </p>
-        <table class="gitTable">
-            <thead>
-                <tr>
-                    <th style="width:70%">File Name or Url</th>
-                    <th style="width:30%">View</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr *ngFor="let object of myRepoList">
-                    <td>{{object.name}}</td>
-                    <td (click)="openDialog(object.name)" class="onHoverView">View
-                        <td>
-                </tr>
 
-            </tbody>
-        </table>
-    </div>
-    <!-- end repo list container -->
-    <!-- empty repo msg -->
-    <div class="noData-container" *ngIf="myRepoList.length==0">
-        <span class="error-msg">No Recod Found</span>
-    </div>
+
+    
     <!-- end empty repo msg -->
 </div>
 
 <!-- repo commit detail container -->
-<div id="myModal" class="modal" [ngStyle]="alertStyles">
 
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close closeDialog" (click)="closePopUp()">&times;</span>
-            <p>Commited Repository Detail</p>
-        </div>
-        <div class="modal-body" id="bind-selected-data">
-            <div class="commit-list" *ngFor="let object of myCommitListMsg">
-                <div class="filed-container committer-email-data-container">
-                    <span class="commited-email-container">
-                        <span class="app-label">Commiter Author</span>
-                        <span class="app-text">{{object.commit.author.email}}</span>
-                    </span>
-                    <span class="commited-email-container">
-                        <span class="app-label">Commiter Date</span>
-                        <span class="app-text">{{object.commit.author.date | date: 'dd/MM/yyyy'}}</span>
-                    </span>
-                </div>
-                <div class="filed-container commited-count-container">
-                    <span class="app-label">Commited Count</span>
-                    <span class="app-text">{{object.commit.comment_count}}</span>
-
-                </div>
-                <div class="filed-container commited-msg">
-                    <span class="app-label">Commited Message</span>
-
-                    <div class="app-text bind-text-container">
-                        {{object.commit.message}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<!-- end repo commit detail container -->
 <img class="loading-icon-container" [ngStyle]="loadingStyle" src="../assets/loading-icon.gif" alt="" />

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/switchMap';
+import { Component, OnInit,Input } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 import { MyGitServiceService } from "../my-git-service.service";
 @Component({
   selector: 'app-my-git-component',
@@ -8,81 +11,50 @@ import { MyGitServiceService } from "../my-git-service.service";
 })
 export class MyGitComponentComponent implements OnInit {
   gitusername: any;
-  isProfile: boolean;
   
-  profile = {};
-  myRepoList = {};
-  myCommitListMsg = {};
-  modal: any;
-  alertStyles = {};
+  searchResults:{};
+  username:any;
   loadingStyle = { 'display': 'none' };
-  username: any;
-  param: any;
-  constructor(public apiSerivce: MyGitServiceService) { }
+  
+ 
+ 
+  modal: any;
+ 
+  
+  
+  constructor(public apiSerivce: MyGitServiceService,
+    public router: Router) { }
 
   ngOnInit() { }
 
+ 
+
+
+ getGitUserSearch(usernameObject)
+ {
+ 
+   this.apiSerivce.getUserSearch(usernameObject).subscribe(data => {
+    
+     this.searchResults = data.items;
+     this.loadingStyle = { 'display': 'none' };
+   });
+ }
+
+  
   /*
     Method getPullList
     param data,test
   */
-  getPullList(data, test) {
-    this.username=test;
-    this.loadingStyle = { 'display': 'block' };
-    this.loadUser(this.username);
-   
-  }
-  /*
-    Method loadUser
-    param usernameObject
-  */
-  loadUser(usernameObject) {
+ getPullList(data, test) {
+  this.username=test;
+  this.loadingStyle = { 'display': 'block' };
+ 
+  this.getGitUserSearch(this.username);
+}
+  
 
-    this.apiSerivce.getUser(usernameObject).subscribe(data => {
-      this.isProfile = true;
-      this.profile = data;
-      this.loadingStyle = { 'display': 'none' };
-    });
-    this.getRepoList(usernameObject);
-  }
+  
 
-   /*
-    Method getRepoList
-    param usernameObject
-  */
-  getRepoList(usernameObject) {
-    this.apiSerivce.getGitRepoList(usernameObject).subscribe(data => {
-      this.myRepoList = data;
-
-    });
-  }
-
-   /*
-    Method openDialog
-    param objectClicked
-  */
-  openDialog(objectClicked) {
-    this.alertStyles = {
-      'display': 'block'
-    };
-    this.loadingStyle = { 'display': 'block' };
-    this.param = {
-      username: this.username, fileName: objectClicked
-    };
-    this.apiSerivce.getGitCommitList(this.param).subscribe(data => {
-      this.myCommitListMsg = data;
-      this.loadingStyle = { 'display': 'none' };
-    })
-  }
-
-  /*
-    Method closePopUp
-    param ''
-  */
-  closePopUp() {
-    this.alertStyles = {
-      'display': 'none'
-    };
-  }
+  
 
 }
