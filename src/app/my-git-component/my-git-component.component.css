@@ -4,6 +4,20 @@
 .app-text{
 color: #999999;
 }
+
+.profile-short-detail-wrapper
+{
+    padding: 10px;
+    text-align: center;
+}
+.followers-following-container{
+    padding: 5px;
+}
+.profile-short-detail-wrappe{
+    background-color: #2196F3;
+}
+
+
 .header-title{
     text-align: center;
     margin-top: 24px;

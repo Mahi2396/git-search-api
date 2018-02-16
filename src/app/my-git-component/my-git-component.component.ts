@@ -9,6 +9,7 @@ import { MyGitServiceService } from "../my-git-service.service";
 export class MyGitComponentComponent implements OnInit {
   gitusername: any;
   isProfile: boolean;
+  searchResults:{};
   profile = {};
   myRepoList = {};
   myCommitListMsg = {};
@@ -29,8 +30,16 @@ export class MyGitComponentComponent implements OnInit {
     this.username=test;
     this.loadingStyle = { 'display': 'block' };
     this.loadUser(this.username);
+    this.getGitUserSearch(this.username);
   }
-
+  getGitUserSearch(usernameObject)
+  {
+  
+    this.apiSerivce.getUserSearch(usernameObject).subscribe(data => {
+     
+      this.searchResults = data.items;
+    });
+  }
   /*
     Method loadUser
     param usernameObject
